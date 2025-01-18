@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,6 +40,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.nezuko.domain.model.BinDetails
+import com.nezuko.domain.model.ResultModel
 import com.nezuko.ui.theme.LightBlue
 import com.nezuko.ui.theme.Spacing
 
@@ -47,8 +50,9 @@ private const val TAG = "MainScreen"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    onButtonClick: () -> Unit,
+    onButtonClick: (String) -> Unit,
     onHistoryClick: () -> Unit,
+    binDetails: ResultModel<BinDetails>,
 ) {
     var text by remember { mutableStateOf("") }
     Log.i(TAG, "MainScreen: ")
@@ -88,15 +92,15 @@ fun MainScreen(
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Search, contentDescription = "поиск")
                 }
-
             )
 
             Button(
-                onClick = onButtonClick,
+                onClick = { onButtonClick(text) },
                 modifier = Modifier
                     .padding(Spacing.default.small)
                     .height(IntrinsicSize.Max),
                 shape = RoundedCornerShape(20.dp),
+                enabled = binDetails.status != ResultModel.Status.LOADING,
                 colors = ButtonDefaults.buttonColors(containerColor = LightBlue)
             ) {
                 Icon(
@@ -105,12 +109,72 @@ fun MainScreen(
                 )
             }
         }
+
+        if (binDetails.status == ResultModel.Status.SUCCESS) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    Text(text = "Бренд карты")
+                    Text(text = binDetails.data!!.cardBrand.ifEmpty { "Неизвестен" })
+
+                    Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                    Text(text = "Тип карты")
+                    Text(text = binDetails.data!!.typeCard.ifEmpty { "Неизвестен" })
+
+                    Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                    Text(text = "Название банка")
+                    Text(text = binDetails.data!!.bankName.ifEmpty { "Неизвестно" })
+
+                    Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                    Text(text = "Ссылка банка")
+                    Text(text = binDetails.data!!.bankUrl)
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Телефон банка")
+                    Text(text = binDetails.data!!.bankPhone)
+
+
+                    Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                    Text(text = "Страна")
+                    Text(text = binDetails.data!!.country)
+
+                    Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                    Text(text = "Флаг страны")
+                    Text(text = binDetails.data!!.flagCountry)
+                }
+            }
+        }
     }
+}
+
+@Composable
+private fun SearchBar() {
+
 }
 
 
 @Preview
 @Composable
 private fun MainPreview() {
-    MainScreen({}, {})
+    MainScreen({}, {}, ResultModel.none())
 }
