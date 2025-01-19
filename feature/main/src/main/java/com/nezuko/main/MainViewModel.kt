@@ -1,8 +1,6 @@
 package com.nezuko.main
 
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nezuko.domain.model.BinDetails
@@ -10,9 +8,7 @@ import com.nezuko.domain.model.ResultModel
 import com.nezuko.domain.repository.BinSearch
 import com.nezuko.domain.repository.LocalStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -36,7 +32,7 @@ class MainViewModel @Inject constructor(
             binSearch.searchCardBIN(bin)
                 .flowOn(Dispatchers.IO)
                 .catch { e ->
-                    Log.e(TAG, "searchBin: ошибка в catch", )
+                    Log.e(TAG, "searchBin: ошибка в catch")
                     _binDetails.update { ResultModel.failure(e.message) }
                 }
                 .collect { value ->

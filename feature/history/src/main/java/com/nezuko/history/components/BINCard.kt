@@ -68,6 +68,11 @@ fun BINCard(
 
                 Text(text = "Флаг страны")
                 Text(text = binDetails.flagCountry)
+
+                Spacer(modifier = Modifier.padding(Spacing.default.small))
+
+                Text(text = "BIN карты")
+                Text(text = "${binDetails.bin}")
             }
         }
     }

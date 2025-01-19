@@ -1,7 +1,6 @@
 package com.nezuko.data.source.remote.rapid
 
 import android.util.Log
-import com.nezuko.domain.model.BinDetails
 import com.nezuko.domain.model.ResultModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

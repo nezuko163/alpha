@@ -9,6 +9,4 @@ interface LocalStoreRepository {
     suspend fun saveBin(vararg binDetails: BinDetails)
 
     suspend fun deleteAll()
-
-    suspend fun deleteBins(vararg binDetails: BinDetails)
 }

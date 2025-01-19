@@ -15,9 +15,6 @@ interface BinDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertBins(vararg bins: BinEntity)
 
-    @Delete
-    suspend fun deleteBins(vararg bins: BinEntity)
-
     @Query("DELETE FROM bins")
     suspend fun deleteAll()
 }

@@ -14,13 +14,11 @@ class LocalStoreRepositoryImpl @Inject constructor(
 ) : LocalStoreRepository {
 
     override suspend fun saveBin(vararg binDetails: BinDetails) =
-         binDao.insertBins(*binDetails.map { it.toBinEntity() }.toTypedArray())
+        binDao.insertBins(*binDetails.map { it.toBinEntity() }.toTypedArray())
 
     override suspend fun deleteAll() =
         binDao.deleteAll()
 
-    override suspend fun deleteBins(vararg binDetails: BinDetails) =
-        binDao.deleteBins(*binDetails.map { it.toBinEntity() }.toTypedArray())
 
     override fun getBins(): Flow<List<BinDetails>> =
         binDao.getAll().map { it.map(BinEntity::toBinDetails) }
