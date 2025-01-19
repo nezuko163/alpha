@@ -1,5 +1,7 @@
 package com.nezuko.history.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
@@ -16,6 +18,19 @@ fun NavController.navigateToHistory(
 
 fun NavGraphBuilder.historyScreen(
     onNavigateBack: () -> Unit,
-) = composable<History> { backStackEntry ->
+) = composable<History>(
+    enterTransition = {
+        slideInHorizontally(initialOffsetX = { it })
+    },
+    exitTransition = {
+        slideOutHorizontally(targetOffsetX = { -it })
+    },
+    popEnterTransition = {
+        slideInHorizontally(initialOffsetX = { -it })
+    },
+    popExitTransition = {
+        slideOutHorizontally(targetOffsetX = { it })
+    }
+) { backStackEntry ->
     HistoryRoute(onNavigateBack = onNavigateBack)
 }

@@ -24,7 +24,7 @@ class BinSearchImpl @Inject constructor(
             Log.i(TAG, "searchCardBIN: data - ${binDetails.data!!.toBinDetails()}")
         } else {
             Log.e(TAG, "searchCardBIN: ашипка")
-            emit(ResultModel.failure("ашипка"))
+            emit(ResultModel.failure(binDetails.message))
         }
     }
 }

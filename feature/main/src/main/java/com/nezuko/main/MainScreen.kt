@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +55,7 @@ fun MainScreen(
     onHistoryClick: () -> Unit,
     binDetails: ResultModel<BinDetails>,
 ) {
-    var text by remember { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf("") }
     Log.i(TAG, "MainScreen: ")
 
     Column(
@@ -166,12 +167,6 @@ fun MainScreen(
         }
     }
 }
-
-@Composable
-private fun SearchBar() {
-
-}
-
 
 @Preview
 @Composable

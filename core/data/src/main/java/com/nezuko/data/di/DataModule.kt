@@ -1,8 +1,10 @@
 package com.nezuko.data.di
 
 import com.nezuko.data.repository.BinSearchImpl
+import com.nezuko.data.repository.LocalStoreRepositoryImpl
 import com.nezuko.data.source.remote.rapid.RapidApiSource
 import com.nezuko.domain.repository.BinSearch
+import com.nezuko.domain.repository.LocalStoreRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,6 +19,10 @@ interface DataModule {
     @Binds
     @Singleton
     fun binSearch(impl: BinSearchImpl): BinSearch
+
+    @Binds
+    @Singleton
+    fun localStoreRepository(impl: LocalStoreRepositoryImpl): LocalStoreRepository
 
     companion object {
         @Provides

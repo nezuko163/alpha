@@ -4,7 +4,7 @@ plugins {
 
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
-    kotlin("plugin.serialization") version "2.0.21" // Убедитесь, что версия соответствует версии Kotlin в вашем проекте
+    kotlin("plugin.serialization") version "2.0.21"
 
 }
 
@@ -45,14 +45,17 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
-    implementation(libs.ktor.client.core) // Основной клиент
+    implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.json) // Работа с JSON
-    implementation(libs.ktor.client.serialization) // Сериализация
-    implementation(libs.ktor.client.logging) // Сериализация
+    implementation(libs.ktor.client.json)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.content.negotiation)
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.serialization.kotlinx.json)
 
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 }
