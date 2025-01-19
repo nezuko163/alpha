@@ -2,7 +2,6 @@ package com.nezuko.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nezuko.domain.model.BinDetails
 import com.nezuko.domain.repository.LocalStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
